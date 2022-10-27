@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  db:
+    image: mongo:4.2
+    container_name: db
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=mydb
+    volumes:
+      - ./db_volume:/data/db
+    ports:
+      - 27017:27017
+
+  back_server:
+    container_name: back
+    depends_on:
+      - db
+    image: boristab/back_server:v1.0
+    ports:
+      - 8080:8080
+  
+  front_server:
+    container_name: front
+    depends_on:
+      - db
+      - back_server
+    image: boristab/front_server:v1.0
+    ports:
+      - 9090:9090

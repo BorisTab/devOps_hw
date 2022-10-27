@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Front Server</title>
+    <script src="main.js"></script>
+</head>
+<body>
+    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+    <form action="/delete" method="post" target="dummyframe">
+        <input type="submit" value="Delete all from DB" />
+    </form>
+    <br />
+    <form action="/set" target="dummyframe">
+        <input type="text" name="key" placeholder="key">
+        <input type="text" name="value" placeholder="value">
+        <input type="submit" value="Set">
+    </form>
+
+    <form>
+        <input type="text" name="key" placeholder="key" id="get_key">
+        <button type="button" id="submit_button" onclick="getVal()">Get</button>
+    </form>
+    <p id="get_answer"></p>
+</html>
