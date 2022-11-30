@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-server
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+  - port: {{ .Values.back_server.port }}
+  selector:
+    app: back-server
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-server
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.back_server.replicas }}
+  selector:
+    matchLabels:
+      app: back-server
+  template:
+    metadata:
+      labels:
+        app: back-server
+    spec:
+      containers:
+      - name: back
+        image: {{ .Values.back_server.image }}
+        ports:
+        - containerPort: {{ .Values.back_server.port }}
+          name: back

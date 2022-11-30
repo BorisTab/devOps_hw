@@ -2,10 +2,14 @@ package main
 
 import (
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
+	backUrl := os.Getenv("BACK_SERVER_URL")
+
 	backClient := http.Client{}
 
 	http.Handle("/", http.FileServer(http.Dir("./static")))
@@ -19,8 +23,9 @@ func main() {
 			return
 		}
 
-		_, err := backClient.Get("http://back_server:8080/set?key=" + key + "&value=" + value)
+		_, err := backClient.Get(backUrl + "/set?key=" + key + "&value=" + value)
 		if err != nil {
+			log.Println("Error while sending request ", backUrl+"/set?key="+key+"&value="+value, " to back server:", err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
@@ -35,7 +40,7 @@ func main() {
 			return
 		}
 
-		resp, err := backClient.Get("http://back_server:8080/get?key=" + key)
+		resp, err := backClient.Get(backUrl + "/get?key=" + key)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
@@ -53,7 +58,7 @@ func main() {
 	})
 
 	http.HandleFunc("/delete", func(w http.ResponseWriter, r *http.Request) {
-		_, err := backClient.Get("http://back_server:8080/delete_all")
+		_, err := backClient.Get(backUrl + "/delete_all")
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			return

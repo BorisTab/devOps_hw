@@ -1,0 +1,19 @@
+back_server:
+  image: boristab/back_server:v1.0
+  port: 8080
+  replicas: 2
+
+front_server:
+  image: boristab/front_server:v2.0
+  env:
+    back_server_url: http://back-server:8080
+  port: 9090
+  node_port: 30000
+  replicas: 2
+
+db:
+  image: mongo:4.2
+  port: 27017
+  node_name: kind-control-plane
+  env:
+    mongo_initdb_database: mydb

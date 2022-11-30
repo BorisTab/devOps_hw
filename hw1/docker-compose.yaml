@@ -26,5 +26,7 @@ services:
       - db
       - back_server
     image: boristab/front_server:v1.0
+    environment:
+      - BACK_SERVER_URL=http://back_server:8080
     ports:
       - 9090:9090

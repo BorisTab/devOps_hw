@@ -1,0 +1,85 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: db-local-storage
+  namespace: {{ .Release.Namespace }}
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: db-pv
+spec:
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: db-local-storage
+  local:
+    path: /mnt
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+            - {{ .Values.db.node_name}}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: db-pvc
+spec:
+  storageClassName: db-local-storage
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+  - port: {{ .Values.db.port }}
+  selector:
+    app: db
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+spec:
+  serviceName: db
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+        selector: db
+    spec:
+      containers:
+      - name: db
+        image: {{ .Values.db.image }}
+        env:
+        - name: MONGO_INITDB_DATABASE
+          value: {{ .Values.db.env.mongo_initdb_database }}
+        volumeMounts:
+        - name: db-data
+          mountPath: /data/db
+        ports:
+        - containerPort: {{ .Values.db.port }}
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: db-pvc
