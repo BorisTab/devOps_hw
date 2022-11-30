@@ -1,0 +1,12 @@
+---
+# tasks file for back-server-deploy
+- name: Deploy back server
+  docker_container:
+    name: back_server
+    image: back_server_test
+    state: started
+    restart_policy: always
+    published_ports:
+      - 8080:8080
+    networks:
+      - name: mynet

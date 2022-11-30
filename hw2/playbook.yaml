@@ -1,0 +1,12 @@
+- name: Build back-server
+  hosts: ansible_test
+  tasks:
+  - name: Build back-server
+    include_role:
+      name: back-server
+  - name: Run db
+    include_role:
+      name: db
+  - name: Deploy back-server
+    include_role:
+      name: back-server-deploy

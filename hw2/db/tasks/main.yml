@@ -1,0 +1,19 @@
+---
+# tasks file for db
+- name: Create network
+  docker_network:
+    name: mynet
+    state: present
+
+- name: Add mongo db
+  docker_container:
+    name: db
+    image: mongo:4.2
+    state: started
+    restart_policy: always
+    published_ports:
+      - 27017:27017
+    env:
+      MONGO_INITDB_DATABASE: mydb
+    networks:
+      - name: mynet
