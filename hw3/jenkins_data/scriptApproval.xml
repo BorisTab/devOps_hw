@@ -1,0 +1,18 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<scriptApproval plugin="script-security@1218.v39ca_7f7ed0a_c">
+  <approvedScriptHashes/>
+  <approvedSignatures/>
+  <aclApprovedSignatures/>
+  <approvedClasspathEntries/>
+  <pendingScripts>
+    <pendingScript>
+      <context>
+        <user>boristab</user>
+      </context>
+      <script></script>
+      <language>groovy</language>
+    </pendingScript>
+  </pendingScripts>
+  <pendingSignatures/>
+  <pendingClasspathEntries/>
+</scriptApproval>

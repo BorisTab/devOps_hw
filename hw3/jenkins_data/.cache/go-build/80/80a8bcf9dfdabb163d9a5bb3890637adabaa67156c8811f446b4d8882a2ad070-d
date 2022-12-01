@@ -1,0 +1,41 @@
+//line /var/jenkins_home/workspace/hw3/main.go:1
+package main
+
+import (
+	httptransport "github.com/go-kit/kit/transport/http"
+	"log"
+	"net/http"
+)
+
+func main() {GoCover_0_343866313330616364386164.Count[0] = 1;
+	svc := stringService{}
+
+	uppercaseHandler := httptransport.NewServer(
+		makeUppercaseEndpoint(svc),
+		decodeUppercaseRequest,
+		encodeResponse,
+	)
+
+	countHandler := httptransport.NewServer(
+		makeCountEndpoint(svc),
+		decodeCountRequest,
+		encodeResponse,
+	)
+
+	http.Handle("/uppercase", uppercaseHandler)
+	http.Handle("/count", countHandler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+var GoCover_0_343866313330616364386164 = struct {
+	Count     [1]uint32
+	Pos       [3 * 1]uint32
+	NumStmt   [1]uint16
+} {
+	Pos: [3 * 1]uint32{
+		9, 27, 0x2000d, // [0]
+	},
+	NumStmt: [1]uint16{
+		6, // 0
+	},
+}

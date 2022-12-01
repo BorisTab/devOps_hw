@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: david.krischke
+Build-Jdk: 1.8.0_112
+Extension-Name: global-build-stats
+Specification-Title: Global build stats plugin will allow to gather an
+ d display global build result statistics. It is a useful tool allowin
+ g to display global hudson build trend over time.
+Implementation-Title: global-build-stats
+Implementation-Version: 1.5
+Plugin-Class: hudson.plugins.global_build_stats.GlobalBuildStatsPlugin
+Group-Id: org.jenkins-ci.plugins
+Short-Name: global-build-stats
+Long-Name: Hudson global-build-stats plugin
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Global+Build+Stats+Plu
+ gin
+Plugin-Version: 1.5
+Hudson-Version: 1.609.1
+Jenkins-Version: 1.609.1
+Plugin-Dependencies: cloudbees-folder:4.9
+Plugin-Developers: David Hinske:dhinske:david.hinske@gmx.net,Frederic 
+ Camblor:fcamblor:fcamblor+wikihudson@gmail.com
+
