@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+
+    tools {
+        go 'go-1.17'
+    }
+    
+    environment {
+        GO111MODULE = 'on'
+        CGO_ENABLED = 0
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                git 'https://github.com/BorisTab/devOpsPracticeTestServer.git'
+
+                sh 'go build -o ./test_server'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                withEnv(["ALLURE_RESULTS_PATH=./allure-results"]){
+                    sh 'mkdir -p allure-results'
+                    sh 'ls -la'
+                    sh 'go test -coverprofile="coverage.out"'    
+                }
+            }
+        }
+        
+        stage('Report') {
+            steps {
+                script {
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'allure-results/allure-results']]
+                    ])
+                }
+            }
+        }
+        
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'sonar';
+                    withSonarQubeEnv() {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }       
+                }
+            }
+        }
+        
+        stage('Build Container') {
+            steps {
+                sh 'docker build .'
+            }
+        }
+    }
+}

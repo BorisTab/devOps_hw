@@ -1,0 +1,66 @@
+--- Copying files at Thu Dec  1 16:54:02 UTC 2022
+--- Copying files at Thu Dec  1 17:24:18 UTC 2022
+--- Copying files at Thu Dec  1 18:04:19 UTC 2022
+--- Copying files at Thu Dec  1 18:05:56 UTC 2022
+--- Copying files at Thu Dec  1 18:29:29 UTC 2022
+--- Copying files at Thu Dec  1 19:05:52 UTC 2022
+--- Copying files at Thu Dec  1 19:09:03 UTC 2022
+--- Copying files at Thu Dec  1 19:25:46 UTC 2022
+INSTALLED init.groovy.d/executors.groovy
+INSTALLED init.groovy.d/security.groovy
+INSTALLED init.groovy.d/tcp-slave-agent-port.groovy
+INSTALLED plugins/blueocean-pipeline-scm-api.jpi : 1.4.2
+INSTALLED plugins/blueocean-personalization.jpi : 1.4.2
+INSTALLED plugins/workflow-cps-global-lib.jpi : 2.9
+INSTALLED plugins/docker-workflow.jpi : 1.15.1
+INSTALLED plugins/jenkins-design-language.jpi : 1.4.2
+INSTALLED plugins/pubsub-light.jpi : 1.12
+INSTALLED plugins/blueocean-dashboard.jpi : 1.4.2
+INSTALLED plugins/blueocean-bitbucket-pipeline.jpi : 1.4.2
+INSTALLED plugins/blueocean-git-pipeline.jpi : 1.4.2
+INSTALLED plugins/jira.jpi : 2.5
+INSTALLED plugins/jquery-detached.jpi : 1.2.1
+INSTALLED plugins/blueocean-pipeline-api-impl.jpi : 1.4.2
+INSTALLED plugins/git-server.jpi : 1.7
+INSTALLED plugins/favorite.jpi : 2.3.1
+INSTALLED plugins/blueocean-events.jpi : 1.4.2
+INSTALLED plugins/blueocean-core-js.jpi : 1.4.2
+INSTALLED plugins/cloudbees-bitbucket-branch-source.jpi : 2.2.10
+INSTALLED plugins/blueocean-autofavorite.jpi : 1.2.2
+INSTALLED plugins/blueocean-github-pipeline.jpi : 1.4.2
+INSTALLED plugins/blueocean-jira.jpi : 1.4.2
+INSTALLED plugins/blueocean-config.jpi : 1.4.2
+INSTALLED plugins/handy-uri-templates-2-api.jpi : 2.1.6-1.0
+INSTALLED plugins/blueocean-rest-impl.jpi : 1.4.2
+INSTALLED plugins/blueocean.jpi : 1.4.2
+INSTALLED plugins/blueocean-rest.jpi : 1.4.2
+INSTALLED plugins/blueocean-pipeline-editor.jpi : 1.4.2
+INSTALLED plugins/pipeline-model-declarative-agent.jpi : 1.1.1
+INSTALLED plugins/blueocean-i18n.jpi : 1.4.2
+INSTALLED plugins/blueocean-commons.jpi : 1.4.2
+INSTALLED plugins/sse-gateway.jpi : 1.15
+INSTALLED plugins/mercurial.jpi : 2.3
+INSTALLED plugins/blueocean-jwt.jpi : 1.4.2
+INSTALLED plugins/blueocean-display-url.jpi : 2.2.0
+INSTALLED plugins/htmlpublisher.jpi : 1.15
+INSTALLED plugins/blueocean-web.jpi : 1.4.2
+INSTALLED plugins/windows-slaves.jpi : 1.3.1
+INSTALLED plugins/keycloak.jpi : 2.2.0
+INSTALLED plugins/icon-shim.jpi : 2.0.3
+INSTALLED plugins/mapdb-api.jpi : 1.0.9.0
+INSTALLED plugins/external-monitor-job.jpi : 1.7
+INSTALLED plugins/global-build-stats.jpi : 1.5
+INSTALLED plugins/handlebars.jpi : 1.1.1
+INSTALLED plugins/metrics.jpi : 3.1.2.11
+INSTALLED plugins/purge-job-history.jpi : 1.1
+INSTALLED plugins/role-strategy.jpi : 2.7.0
+INSTALLED plugins/gitlab-plugin.jpi : 1.5.5
+INSTALLED plugins/subversion.jpi : 2.10.5
+INSTALLED plugins/swarm.jpi : 3.12
+--- Copying files at Thu Dec  1 19:31:59 UTC 2022
+--- Copying files at Thu Dec  1 19:45:06 UTC 2022
+--- Copying files at Thu Dec  1 19:51:42 UTC 2022
+--- Copying files at Thu Dec  1 19:55:01 UTC 2022
+--- Copying files at Thu Dec  1 20:03:01 UTC 2022
+--- Copying files at Thu Dec  1 20:09:48 UTC 2022
+--- Copying files at Thu Dec  1 20:15:51 UTC 2022
