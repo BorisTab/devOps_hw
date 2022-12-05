@@ -1,0 +1,13 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<fingerprint>
+  <timestamp>2022-12-04 17:27:46.490 UTC</timestamp>
+  <md5sum>718fe1df18810dff0d3264b5ef66f877</md5sum>
+  <fileName>Credential id=dockerhub-cred name=boristab/******</fileName>
+  <usages>
+    <entry>
+      <string>hw5</string>
+      <ranges>19-34</ranges>
+    </entry>
+  </usages>
+  <facets/>
+</fingerprint>

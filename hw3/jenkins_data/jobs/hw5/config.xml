@@ -1,0 +1,130 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@1254.v3f64639b_11dd">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@2.2118.v31fd5b_9944b_5"/>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction plugin="pipeline-model-definition@2.2118.v31fd5b_9944b_5">
+      <jobProperties/>
+      <triggers/>
+      <parameters/>
+      <options/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobPropertyTrackerAction>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.36.0">
+      <projectUrl>https://github.com/BorisTab/devOpsPracticeTestServer/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.5.5">
+      <gitLabConnection></gitLabConnection>
+    </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers>
+        <hudson.triggers.SCMTrigger>
+          <spec>* * * * *</spec>
+          <ignorePostCommitHooks>false</ignorePostCommitHooks>
+        </hudson.triggers.SCMTrigger>
+      </triggers>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@3536.vb_8a_6628079d5">
+    <script>def testPassed = true
+
+pipeline {
+    agent any
+
+    tools {
+        go &apos;go-1.17&apos;
+    }
+    
+    environment {
+        GO111MODULE = &apos;on&apos;
+        CGO_ENABLED = 0
+        
+        DOCKERHUB_CREDENTIALS=credentials(&apos;dockerhub-cred&apos;)
+    }
+    
+    stages {
+        stage(&apos;Build&apos;) {
+            steps {
+                git &apos;https://github.com/BorisTab/devOpsPracticeTestServer.git&apos;
+
+                sh &apos;go build -o ./test_server&apos;
+            }
+        }
+        
+        stage(&apos;Test&apos;) {
+            steps {
+                withEnv([&quot;ALLURE_RESULTS_PATH=./allure-results&quot;]){
+                    sh &apos;mkdir -p allure-results&apos;
+                    sh &apos;ls -la&apos;
+                    script {
+                        try {
+                            sh &apos;go test -coverprofile=&quot;coverage.out&quot;&apos; 
+                        } catch (Exception e) {
+                            testPassed = false
+                        }    
+                    }
+                }
+            }
+        }
+        
+        stage(&apos;Report&apos;) {
+            steps {
+                script {
+                    allure([
+                        includeProperties: false,
+                        jdk: &apos;&apos;,
+                        properties: [],
+                        reportBuildPolicy: &apos;ALWAYS&apos;,
+                        results: [[path: &apos;allure-results/allure-results&apos;]]
+                    ])
+                }
+            }
+        }
+    
+        stage(&apos;SonarQube Analysis&apos;) {
+            steps {
+                script {
+                    def scannerHome = tool &apos;sonar&apos;;
+                    withSonarQubeEnv() {
+                        sh &quot;${scannerHome}/bin/sonar-scanner&quot;
+                    }       
+                }
+            }
+        }
+        
+        stage(&apos;Build and push image&apos;) {
+            steps {
+                sh &apos;docker build -t boristab/dev_ops_test .&apos;
+                sh &apos;echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin&apos;
+                sh &apos;docker push boristab/dev_ops_test&apos;
+            }
+        }
+        
+        stage(&apos;Dev deploy&apos;) {
+            steps {
+                sh &apos;ansible-playbook -i hosts.yaml playbook_dev.yaml&apos;
+            }
+        }
+        
+        stage(&apos;Production Deploy&apos;) {
+            steps {
+                script {
+                    if (testPassed) {
+                        sh &apos;ansible-playbook -i hosts.yaml playbook_prod.yaml&apos;
+                    }
+                    else {
+                        return &quot;Tests failed, no deploy&quot;
+                    }                     
+                }
+            }
+        }
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

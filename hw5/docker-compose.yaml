@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  jenkins:
+    user: root
+    image: jenkins/jenkins:lts
+    ports:
+      - 8080:8080
+      - 50000:50000
+    container_name: jenkins
+    volumes:
+      - ./jenkins_data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../hw3/usr/bin/docker:/usr/bin/docker
+  
+  sonarqube:
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    image: sonarqube:latest
+    ports:
+      - 9000:9000
+
+  dev:
+    image: ubuntu:18.04
+    container_name: dev
+    command: bash -c "while true; do sleep 2; done"
+  
+  prod:
+    image: ubuntu:18.04
+    container_name: prod
+    command: bash -c "while true; do sleep 2; done"
+

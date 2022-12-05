@@ -1,0 +1,12 @@
+Started on Dec 6, 2022, 12:03:56 AM
+Using strategy: Default
+[poll] Last Built Revision: Revision f731de13e2efa9665d89635f2e2af5e11259bbbb (refs/remotes/origin/master)
+The recommended git tool is: NONE
+No credentials specified
+ > git --version # timeout=10
+ > git --version # 'git version 2.30.2'
+ > git ls-remote -h -- https://github.com/BorisTab/devOpsPracticeTestServer.git # timeout=10
+Found 1 remote heads on https://github.com/BorisTab/devOpsPracticeTestServer.git
+[poll] Latest remote head revision on refs/heads/master is: f5169746997aa6ce74ab75b14fa946e1858ffbe1
+Done. Took 0.51 sec
+Changes found

@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: maxime.lagresle
+Build-Jdk: 1.8.0_275
+Extension-Name: kubernetes-cli
+Specification-Title: The Jenkins Plugins Parent POM Project
+Implementation-Title: kubernetes-cli
+Implementation-Version: 1.10.3
+Group-Id: org.jenkins-ci.plugins
+Short-Name: kubernetes-cli
+Long-Name: Kubernetes CLI Plugin
+Url: https://github.com/jenkinsci/kubernetes-cli-plugin
+Compatible-Since-Version: 1.0.0
+Minimum-Java-Version: 1.8
+Plugin-Version: 1.10.3
+Hudson-Version: 2.222.4
+Jenkins-Version: 2.222.4
+Plugin-Dependencies: workflow-step-api:2.22,apache-httpcomponents-clie
+ nt-4-api:4.5.10-2.0,authentication-tokens:1.3,credentials:2.3.5,plain
+ -credentials:1.6,kubernetes-credentials:0.9.0
+Plugin-Developers: Max Laverse:max_laverse:
+Plugin-ScmUrl: https://github.com/jenkinsci/kubernetes-cli-plugin
+

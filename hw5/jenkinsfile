@@ -1,0 +1,94 @@
+def testPassed = true
+
+pipeline {
+    agent any
+
+    tools {
+        go 'go-1.17'
+    }
+    
+    environment {
+        GO111MODULE = 'on'
+        CGO_ENABLED = 0
+        
+        DOCKERHUB_CREDENTIALS=credentials('dockerhub-cred')
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                git 'https://github.com/BorisTab/devOpsPracticeTestServer.git'
+
+                sh 'go build -o ./test_server'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                withEnv(["ALLURE_RESULTS_PATH=./allure-results"]){
+                    sh 'mkdir -p allure-results'
+                    sh 'ls -la'
+                    script {
+                        try {
+                            sh 'go test -coverprofile="coverage.out"' 
+                        } catch (Exception e) {
+                            testPassed = false
+                        }    
+                    }
+                }
+            }
+        }
+        
+        stage('Report') {
+            steps {
+                script {
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'allure-results/allure-results']]
+                    ])
+                }
+            }
+        }
+    
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'sonar';
+                    withSonarQubeEnv() {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }       
+                }
+            }
+        }
+        
+        stage('Build and push image') {
+            steps {
+                sh 'docker build -t boristab/dev_ops_test .'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'docker push boristab/dev_ops_test'
+            }
+        }
+        
+        stage('Dev deploy') {
+            steps {
+                sh 'ansible-playbook -i hosts.yaml playbook_dev.yaml'
+            }
+        }
+        
+        stage('Production Deploy') {
+            steps {
+                script {
+                    if (testPassed) {
+                        sh 'ansible-playbook -i hosts.yaml playbook_prod.yaml'
+                    }
+                    else {
+                        return "Tests failed, no deploy"
+                    }                     
+                }
+            }
+        }
+    }
+}

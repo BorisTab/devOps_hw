@@ -1,0 +1,32 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<Tag plugin="workflow-support@839.v35e2736cfd5c">
+  <node class="cps.n.StepStartNode" plugin="workflow-cps@3536.vb_8a_6628079d5">
+    <parentIds>
+      <string>53</string>
+    </parentIds>
+    <id>54</id>
+    <descriptorId>org.jenkinsci.plugins.workflow.steps.EnvStep</descriptorId>
+  </node>
+  <actions>
+    <s.a.LogStorageAction/>
+    <cps.a.ArgumentsActionImpl plugin="workflow-cps@3536.vb_8a_6628079d5">
+      <arguments>
+        <entry>
+          <string>overrides</string>
+          <list>
+            <string>GOROOT=/var/jenkins_home/tools/org.jenkinsci.plugins.golang.GolangInstallation/go-1.17</string>
+            <string>PATH+GOROOT_BIN=/var/jenkins_home/tools/org.jenkinsci.plugins.golang.GolangInstallation/go-1.17/bin</string>
+          </list>
+        </entry>
+      </arguments>
+      <sensitiveVariables>
+        <string>DOCKERHUB_CREDENTIALS</string>
+        <string>DOCKERHUB_CREDENTIALS_PSW</string>
+      </sensitiveVariables>
+      <isUnmodifiedBySanitization>true</isUnmodifiedBySanitization>
+    </cps.a.ArgumentsActionImpl>
+    <wf.a.TimingAction plugin="workflow-api@1200.v8005c684b_a_c6">
+      <startTime>1670284776509</startTime>
+    </wf.a.TimingAction>
+  </actions>
+</Tag>

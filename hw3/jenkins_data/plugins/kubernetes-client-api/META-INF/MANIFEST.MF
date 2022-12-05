@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Hudson-Version: 2.249
+Plugin-Dependencies: snakeyaml-api:1.29.1,bouncycastle-api:2.25,jackso
+ n2-api:2.12.4
+Implementation-Title: Kubernetes Client API Plugin
+Long-Name: Kubernetes Client API Plugin
+Implementation-Version: 5.12.2-193.v26a_6078f65a_9
+Group-Id: org.jenkins-ci.plugins
+Minimum-Java-Version: 1.8
+Support-Dynamic-Loading: true
+Plugin-License-Name: The Apache Software License, Version 2.0
+Specification-Title: Kubernetes Client API Plugin
+Plugin-ScmUrl: https://github.com/jenkinsci/kubernetes-client-api-plug
+ in
+Plugin-Version: 5.12.2-193.v26a_6078f65a_9
+Jenkins-Version: 2.249
+Url: https://github.com/jenkinsci/kubernetes-client-api-plugin
+Short-Name: kubernetes-client-api
+Plugin-License-Url: http://www.apache.org/licenses/LICENSE-2.0.txt
+Plugin-Developers: 
+Build-Jdk-Spec: 1.8
+Created-By: Maven Archiver 3.5.2
+Specification-Version: 5.12
+
